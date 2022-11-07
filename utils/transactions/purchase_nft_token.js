@@ -25,18 +25,7 @@ const purchaseNFTTokenSchema = {
 };
 
 
-// module.exports(purchaseNFTToken)
-// module.exports ={purchaseNFTToken,purchaseNFTTokenSchema};
-
-function testConsole(){
-  console.log("This is a function for export");
-}
-
-// module.exports= function( name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
-//   minFeePerByte){purchaseNFTToken(name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
-//     minFeePerByte)};
-
-module.exports = {purchaseNFTToken:async (name,nftId,purchaseValue,passphrase,fee,networkIdentifier,minFeePerByte) =>{
+const purchaseNFTToken = async (name,nftId,purchaseValue,passphrase,fee,networkIdentifier,minFeePerByte) =>{
   console.log('inside purchaseNFTToken');
   console.log('name is '+ name);
   console.log('passphrase is ',passphrase);
@@ -80,4 +69,8 @@ module.exports = {purchaseNFTToken:async (name,nftId,purchaseValue,passphrase,fe
     tx: codec.codec.toJSON(commonAsset.getFullAssetSchema(purchaseNFTTokenSchema), rest),
     minFee: commonAsset.calcMinTxFee(purchaseNFTTokenSchema, minFeePerByte, rest),
   };
-}}
+}
+
+
+
+module.exports.purchaseNFTToken= purchaseNFTToken;

@@ -6,7 +6,6 @@ module.exports = function(app) {
         console.log("request parameters"+JSON.stringify(req.body));
         test.console_test(req.body.name)
         console.log(test.name);
-        // res.send("info api")
         api.fetchNodeInfo().then((result) => {console.log("result is "+JSON.stringify(result)); res.json({success:true,data:result})});
 
     

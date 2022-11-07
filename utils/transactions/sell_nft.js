@@ -1,10 +1,13 @@
 /* global BigInt */
 
-import { transactions, codec, cryptography } from "@liskhq/lisk-client";
-import { getFullAssetSchema, calcMinTxFee } from "../common";
-import { fetchAccountInfo } from "../../api";
+// import { transactions, codec, cryptography } from "@liskhq/lisk-client";
+// import { getFullAssetSchema, calcMinTxFee } from "../common";
+// import { fetchAccountInfo } from "../../api";
+const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
+const commonAsset =require("../common");
+const { fetchAccountInfo } =require("../../api");
 
-export const sellNFTSchema = {
+ const sellNFTSchema = {
   $id: "lisk/nft/sell",
   type: "object",
   required: ["nftId", "minPurchaseMargin"],
@@ -24,15 +27,9 @@ export const sellNFTSchema = {
   },
 };
 
-export const sellNFT = async ({
-                                         name,
-                                         nftId,
-                                         minPurchaseMargin,
-                                         passphrase,
-                                         fee,
-                                         networkIdentifier,
-                                         minFeePerByte,
-                                       }) => {
+ const sellNFT = async (
+  name,nftId,minPurchaseMargin,passphrase,fee,networkIdentifier,minFeePerByte
+                                       ) => {
   const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
@@ -62,7 +59,9 @@ export const sellNFT = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(sellNFTSchema), rest),
-    minFee: calcMinTxFee(sellNFTSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(commonAsset.getFullAssetSchema(sellNFTSchema), rest),
+    minFee: commonAsset.calcMinTxFee(sellNFTSchema, minFeePerByte, rest),
   };
-};
+}
+
+module.exports.sellNFT= sellNFT;
