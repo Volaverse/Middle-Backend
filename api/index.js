@@ -4,39 +4,37 @@ const fetchNodeInfo = async () => {
   console.log("fetch node info")
   return axios.get("http://localhost:4000/api/node/info")
     .then((res) => res.data.data)
-    .catch((error)=> console.log(error));
+    .catch((error) => console.log(error));
 };
 
- const fetchAccountInfo = async (address) => {
+const fetchAccountInfo = async (address) => {
   return axios.get(`http://localhost:4000/api/accounts/${address}`)
-  .then((res) => res.data.data)
-  .catch((error)=> console.log(error));
+    .then((res) => res.data.data)
+    .catch((error) => console.log(error));
 };
 
- const sendTransactions = async (tx) => {
-  return axios.post("http://localhost:4000/api/transactions", {
+const sendTransactions = async (tx) => {
+  return axios.post("http://localhost:4000/api/transactions", JSON.stringify(tx), {
     headers: {
       "Content-Type": "application/json",
-    },
-    body: JSON.stringify(tx),
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
+    }
+  }).then((res) =>{console.log("resp status is "+res.status);console.log("data is ",res.data);return res})
+    .catch((error) => console.log(error));
 };
 
- const fetchAllNFTTokens = async () => {
+const fetchAllNFTTokens = async () => {
   return axios.get("http://localhost:8080/api/nft_tokens")
     .then((res) => res.json())
     .then((res) => res.data);
 };
 
- const fetchNFTToken = async (id) => {
+const fetchNFTToken = async (id) => {
   return axios.get(`http://localhost:8080/api/nft_tokens/${id}`)
     .then((res) => res.json())
     .then((res) => res.data);
 };
 
- const getAllTransactions = async () => {
+const getAllTransactions = async () => {
   return axios.get(`http://localhost:8080/api/transactions`)
     .then((res) => res.json())
     .then((res) => {
@@ -44,4 +42,4 @@ const fetchNodeInfo = async () => {
     });
 };
 
-module.exports= {fetchNodeInfo,fetchAccountInfo,sendTransactions,fetchAllNFTTokens,fetchNFTToken,getAllTransactions};
+module.exports = { fetchNodeInfo, fetchAccountInfo, sendTransactions, fetchAllNFTTokens, fetchNFTToken, getAllTransactions };

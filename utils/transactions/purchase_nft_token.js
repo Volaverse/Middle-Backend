@@ -24,15 +24,19 @@ const purchaseNFTTokenSchema = {
   },
 };
 
- const purchaseNFTToken = async (
-  name,
-  nftId,
-  purchaseValue,
-  passphrase,
-  fee,
-  networkIdentifier,
-  minFeePerByte,
-) => {
+
+// module.exports(purchaseNFTToken)
+// module.exports ={purchaseNFTToken,purchaseNFTTokenSchema};
+
+function testConsole(){
+  console.log("This is a function for export");
+}
+
+// module.exports= function( name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
+//   minFeePerByte){purchaseNFTToken(name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
+//     minFeePerByte)};
+
+module.exports = {purchaseNFTToken:async (name,nftId,purchaseValue,passphrase,fee,networkIdentifier,minFeePerByte) =>{
   console.log('inside purchaseNFTToken');
   console.log('name is '+ name);
   console.log('passphrase is ',passphrase);
@@ -43,10 +47,10 @@ const purchaseNFTTokenSchema = {
 
   const address = cryptography.getAddressFromPassphrase(passphrase);
   console.log("address is",address.toString("hex"));
-  // const {
-  //   sequence: { nonce },
-  // } = await fetchAccountInfo(address.toString("hex"));
-  const nonce=0;
+  const {
+    sequence: { nonce },
+  } = await fetchAccountInfo(address.toString("hex"));
+  // const nonce=0;
   console.log("nonce",JSON.stringify(publicKey));
   const { id, ...rest } = transactions.signTransaction(
     purchaseNFTTokenSchema,
@@ -76,15 +80,4 @@ const purchaseNFTTokenSchema = {
     tx: codec.codec.toJSON(commonAsset.getFullAssetSchema(purchaseNFTTokenSchema), rest),
     minFee: commonAsset.calcMinTxFee(purchaseNFTTokenSchema, minFeePerByte, rest),
   };
-};
-
-// module.exports(purchaseNFTToken)
-// module.exports ={purchaseNFTToken,purchaseNFTTokenSchema};
-
-function testConsole(){
-  console.log("This is a function for export");
-}
-
-module.exports= function( name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
-  minFeePerByte){purchaseNFTToken(name,nftId,purchaseValue,passphrase,fee,networkIdentifier,
-    minFeePerByte)};
+}}
