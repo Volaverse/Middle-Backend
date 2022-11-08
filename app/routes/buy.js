@@ -28,7 +28,7 @@ module.exports = function(app) {
         console.log("networkId is ",networkId," min fee is ",minFee);
         const txn = await buy_tokken.purchaseNFTToken(name,id,purchaseValue,passphrase,fee,networkId,minFee)
         if(!txn){
-            return res.status(400).json({Message:"Cannot sign the txn.Kindly Try after sometime"})
+            return res.status(400).json({Message:"Cannot grt the txn.Kindly Try after sometime"})
         }
         const resp = await api.sendTransactions(txn.tx);
         if(!resp){

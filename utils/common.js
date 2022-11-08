@@ -42,7 +42,7 @@ const baseAssetSchema = {
 	},
 };
 
- const getFullAssetSchema = (assetSchema) => {console.log("Full Asset schema");console.log("asset function input"+assetSchema);return objects.mergeDeep({}, baseAssetSchema, { properties: { asset: assetSchema }, })};
+ const getFullAssetSchema = (assetSchema) => {return objects.mergeDeep({}, baseAssetSchema, { properties: { asset: assetSchema }, })};
 
  const calcMinTxFee = (assetSchema, minFeePerByte, tx) => {
 	const assetBytes = codec.encode(assetSchema, tx.asset);
