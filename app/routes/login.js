@@ -17,7 +17,8 @@ module.exports = function(app) {
           );
           const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
           const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(address, 'hex'), 'lsk').toString('binary');
-          res.json({status:"success",publicKey:publicKey,display_add:base32UIAddress})
+        //   res.json({status:"success",publicKey:publicKey,display_add:base32UIAddress})
+          res.json({status:"success",display_add:base32UIAddress})
 
         // res.json({success:"yes",data:resp})
           
