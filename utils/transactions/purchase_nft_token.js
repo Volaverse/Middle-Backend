@@ -2,7 +2,7 @@
 
 const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
 const commonAsset =require("../common");
-const { fetchAccountInfo } =require("../../api");
+const { fetchAccountInfo } =require("../../requests");
 
 const purchaseNFTTokenSchema = {
   $id: "lisk/nft/purchase",

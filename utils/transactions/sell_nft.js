@@ -5,7 +5,7 @@
 // import { fetchAccountInfo } from "../../api";
 const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
 const commonAsset =require("../common");
-const { fetchAccountInfo } =require("../../api");
+const { fetchAccountInfo } =require("../../requests");
 
  const sellNFTSchema = {
   $id: "lisk/nft/sell",

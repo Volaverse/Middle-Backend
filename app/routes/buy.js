@@ -1,8 +1,7 @@
-const api = require("../../api");
+const api = require("../../requests");
 const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
 // const { getFullAssetSchema, calcMinTxFee } =require("../common");
 const buy_tokken  = require("../../utils/transactions/purchase_nft_token");
-const test = require("./console");
 
 // var nodeInfo;
 module.exports = function(app) {
