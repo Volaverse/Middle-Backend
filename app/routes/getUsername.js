@@ -4,7 +4,7 @@ const userData=require("../../models/user");
 module.exports = function(app) {
     console.log("Get username from address")
 
-    app.get('/getUsername',    async (req,res) =>{
+    app.post('/getUsername',    async (req,res) =>{
         console.log("heyy");
         const liskAddress = req.body.liskAddress;
         
