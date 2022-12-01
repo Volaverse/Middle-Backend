@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose=require("mongoose");
 const dotenv = require('dotenv').config();
 
+const cors =require('cors');
 const app = express();
 const port = 8000;
 const logger = (req, res, next) => {
@@ -13,6 +14,7 @@ const logger = (req, res, next) => {
     next();
 }
 const morgan = require('morgan');
+app.use(cors())
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

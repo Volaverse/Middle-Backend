@@ -13,6 +13,7 @@
     "@liskhq/lisk-client": "^5.0.3",
     "axios": "^0.21.4",
     "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "lisk-sdk": "^5.2.2",
