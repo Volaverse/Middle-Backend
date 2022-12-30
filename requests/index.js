@@ -4,7 +4,8 @@ const { transactions, cryptography } =require ("@liskhq/lisk-client");
 
 // const { Buffer } =require ("lisk-sdk");
 
-const host="http://13.230.167.238"
+//const host="http://13.230.167.238";
+const host="http://localhost";
 const fetchNodeInfo = async () => {
   console.log("fetch node info")
   return axios.get(host+":4000/api/node/info")
