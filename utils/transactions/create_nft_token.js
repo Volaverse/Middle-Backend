@@ -1,10 +1,10 @@
 /* global BigInt */
 
-import { transactions, codec, cryptography } from "@liskhq/lisk-client";
-import { getFullAssetSchema, calcMinTxFee } from "../common";
-import { fetchAccountInfo } from "../../api";
+const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
+const commonAsset =require("../common");
+const { fetchAccountInfo } =require("../../requests");
 
-export const createNFTTokenSchema = {
+const createNFTTokenSchema = {
   $id: "lisk/nft/create",
   type: "object",
   required: ["minPurchaseMargin", "initValue", "name","category","imageUrl"],
@@ -32,7 +32,7 @@ export const createNFTTokenSchema = {
   },
 };
 
-export const createNFTToken = async ({
+const createNFTToken = async (
   name,
   initValue,
   minPurchaseMargin,
@@ -42,16 +42,18 @@ export const createNFTToken = async ({
   fee,
   networkIdentifier,
   minFeePerByte,
-}) => {
+) => {
+  console.log('inside in create nft tokken '+passphrase)
   const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
     passphrase
   );
-  const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+
+  const address = cryptography.getAddressFromPassphrase(passphrase);
   console.log("Value for nft creation CATEGORY"+ parseInt(category)+ " : "+ imageUrl);
 
   const {
     sequence: { nonce },
-  } = await fetchAccountInfo(address);
+  } = await fetchAccountInfo(address.toString("hex"));
 
   const { id, ...rest } = transactions.signTransaction(
     createNFTTokenSchema,
@@ -75,7 +77,9 @@ export const createNFTToken = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(createNFTTokenSchema), rest),
-    minFee: calcMinTxFee(createNFTTokenSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(commonAsset.getFullAssetSchema(createNFTTokenSchema), rest),
+    minFee: commonAsset.calcMinTxFee(createNFTTokenSchema, minFeePerByte, rest),
   };
 };
+
+module.exports.createNFTTokeen= createNFTToken;

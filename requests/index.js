@@ -4,7 +4,7 @@ const { transactions, cryptography } =require ("@liskhq/lisk-client");
 
 // const { Buffer } =require ("lisk-sdk");
 
-//const host="http://13.230.167.238";
+// const host="http://13.230.167.238";
 const host="http://localhost";
 const fetchNodeInfo = async () => {
   console.log("fetch node info")
@@ -25,7 +25,9 @@ const sendTransactions = async (tx) => {
       "Content-Type": "application/json",
     }
   }).then((res) =>{console.log("resp status is "+res.status);console.log("data is ",res.data);return res})
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log("message is "+ error.config)
+      console.log(error)});
 };
 
 const fetchAllNFTTokens = async () => {
@@ -40,7 +42,6 @@ const fetchAllNFTTokens = async () => {
   })
   if(response){return response}
   return res.data.data
-
   }
   
   return res.data.data})
