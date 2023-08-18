@@ -1,5 +1,7 @@
 const api = require("../../requests");
 const transfer = require("../../utils/transactions/transfer");
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = function (app) {
   app.post("/addFaucet", async (req, res) => {
@@ -18,8 +20,8 @@ module.exports = function (app) {
     if (!fee) {
       return res.status(400).json({ msg: "Please send the fee parameter" });
     }
-    const passphrase =
-      "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready";
+    // eslint-disable-next-line no-undef
+    const passphrase = process.env.passphrase_faucet;
     var networkId, minFee;
     if (nodeInfo) {
       networkId = nodeInfo.networkIdentifier;

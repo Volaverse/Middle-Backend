@@ -1,6 +1,8 @@
 const { passphrase, cryptography } = require("@liskhq/lisk-client");
 const transfer = require("../../utils/transactions/transfer");
 const api = require("../../requests");
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = function (app) {
   app.get("/create", async (_req, res) => {
@@ -12,8 +14,8 @@ module.exports = function (app) {
     const recipientAddress = address;
     const amount = "5";
     const fee = "2";
-    const passphrase_faucet =
-      "avocado palm junior balcony wage shoulder door kite coral aspect panic silver";
+    // eslint-disable-next-line no-undef
+    const passphrase_faucet = process.env.passphrase_faucet;
     var networkId, minFee;
     if (nodeInfo) {
       networkId = nodeInfo.networkIdentifier;

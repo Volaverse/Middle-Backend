@@ -36,6 +36,8 @@ The following are the APIs that are provided by this backend:
 
 /create: This API is used to create lisk account with 5 lsk faucets
 
+/addFaucet: This API is to add faucets to a lisk account 
+
 ## Examples
 The following are some examples of how to use the APIs in this backend:
 
@@ -86,6 +88,18 @@ The request body would contain the following JSON data:
     {
        "passphrase": "passphrase"
     }
+
+To add faucet to a lisk account, you would make a POST request to the following URL:
+http://localhost:3000/addFaucet
+
+The request body would contain the following JSON data:
+
+    {
+         "recipientAddress": "Recipet lisk address",
+         "amount": "Amount to be added",
+         "fee": "Transaction fee"
+    }
+
 
 
 # License
