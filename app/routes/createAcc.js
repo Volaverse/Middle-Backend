@@ -13,7 +13,7 @@ module.exports = function (app) {
     const amount = "5";
     const fee = "2";
     const passphrase_faucet =
-      "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready";
+      "avocado palm junior balcony wage shoulder door kite coral aspect panic silver";
     var networkId, minFee;
     if (nodeInfo) {
       networkId = nodeInfo.networkIdentifier;

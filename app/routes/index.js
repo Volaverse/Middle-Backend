@@ -7,7 +7,6 @@ const addInfo = require("./addInfo");
 const tokenInfo = require("./token");
 const getUsername = require("./getUsername");
 const addFaucet = require("./faucet");
-const createNft = require("./createNft");
 module.exports = function (app) {
   login(app);
   buy(app);
@@ -18,5 +17,4 @@ module.exports = function (app) {
   getUsername(app);
   tokenInfo(app);
   addFaucet(app);
-  createNft(app);
 };
