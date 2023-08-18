@@ -1,18 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose=require("mongoose");
-const dotenv = require('dotenv').config();
-
+const dotenv = require('dotenv');
+dotenv.config();
 const cors =require('cors');
 const app = express();
 const port = 8000;
-const logger = (req, res, next) => {
-    const method = req.method;
-    const url = req.url;
-    const time = new Date().getTime();
-    console.log(method, url, time);
-    next();
-}
 const morgan = require('morgan');
 app.use(cors())
 app.use(morgan('tiny'));
@@ -24,13 +17,14 @@ require('./app/routes')(app);
 
 mongoose
   .connect(
+    // eslint-disable-next-line no-undef
     process.env.MONGO_URL,
     {
       useNewUrlParser: true,useUnifiedTopology: true 
     }
   )
   .then(() => {
-    app.listen(port, function (req, res) {
+    app.listen(port, function () {
         console.log('We are live on ' + port);
     });
   })

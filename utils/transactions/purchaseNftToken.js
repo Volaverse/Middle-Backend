@@ -1,8 +1,8 @@
 /* global BigInt */
-
-const { transactions, codec, cryptography } =require ("@liskhq/lisk-client");
-const commonAsset =require("../common");
-const { fetchAccountInfo } =require("../../requests");
+/* global Buffer */
+const { transactions, codec, cryptography } = require("@liskhq/lisk-client");
+const commonAsset = require("../common");
+const { fetchAccountInfo } = require("../../requests");
 
 const purchaseNFTTokenSchema = {
   $id: "lisk/nft/purchase",
@@ -24,12 +24,17 @@ const purchaseNFTTokenSchema = {
   },
 };
 
-
-const purchaseNFTToken = async (name,nftId,purchaseValue,passphrase,fee,networkIdentifier,minFeePerByte) =>{
-
-  const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
-    passphrase
-  );
+const purchaseNFTToken = async (
+  name,
+  nftId,
+  purchaseValue,
+  passphrase,
+  fee,
+  networkIdentifier,
+  minFeePerByte
+) => {
+  const { publicKey } =
+    cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
 
   const address = cryptography.getAddressFromPassphrase(passphrase);
   const {
@@ -55,11 +60,16 @@ const purchaseNFTToken = async (name,nftId,purchaseValue,passphrase,fee,networkI
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(commonAsset.getFullAssetSchema(purchaseNFTTokenSchema), rest),
-    minFee: commonAsset.calcMinTxFee(purchaseNFTTokenSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(
+      commonAsset.getFullAssetSchema(purchaseNFTTokenSchema),
+      rest
+    ),
+    minFee: commonAsset.calcMinTxFee(
+      purchaseNFTTokenSchema,
+      minFeePerByte,
+      rest
+    ),
   };
-}
+};
 
-
-
-module.exports.purchaseNFTToken= purchaseNFTToken;
+module.exports.purchaseNFTToken = purchaseNFTToken;

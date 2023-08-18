@@ -1,11 +1,8 @@
 /* global BigInt */
-
-// import { transactions, codec, cryptography } from "@liskhq/lisk-client";
-// import { getFullAssetSchema, calcMinTxFee } from "../common";
-// import { fetchAccountInfo } from "../../api";
-const { transactions, codec, cryptography } = require( "@liskhq/lisk-client");
-const { getFullAssetSchema, calcMinTxFee } = require( "../common");
-const { fetchAccountInfo } =require("../../requests");
+/* global Buffer */
+const { transactions, codec, cryptography } = require("@liskhq/lisk-client");
+const { getFullAssetSchema, calcMinTxFee } = require("../common");
+const { fetchAccountInfo } = require("../../requests");
 
 const transferAssetSchema = {
   $id: "lisk/transfer-asset",
@@ -32,17 +29,16 @@ const transferAssetSchema = {
   },
 };
 
- const transfer = async (
+const transfer = async (
   recipientAddress,
   amount,
   passphrase,
   fee,
   networkIdentifier,
-  minFeePerByte,
+  minFeePerByte
 ) => {
-  const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
-    passphrase
-  );
+  const { publicKey } =
+    cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
   const address = cryptography.getAddressFromPassphrase(passphrase);
   const {
     sequence: { nonce },
@@ -73,5 +69,4 @@ const transferAssetSchema = {
   };
 };
 
-
-module.exports.transfer= transfer;
+module.exports.transfer = transfer;
