@@ -1,6 +1,5 @@
 /* global Buffer */
 const axios = require("axios");
-// serverIp-13.230.167.238
 const { transactions, cryptography } = require("@liskhq/lisk-client");
 const host = "http://localhost";
 const fetchNodeInfo = async () => {
