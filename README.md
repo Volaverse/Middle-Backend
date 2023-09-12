@@ -19,7 +19,7 @@ node server.js
 
 This will start the backend on port 8000. You can then access the APIs by making HTTP requests to the backend.
 
-APIs
+### APIs
 The following are the APIs that are provided by this backend:
 
 /tokenInfo: This API returns a list of all tokens
@@ -64,7 +64,7 @@ The request body would contain the following JSON data:
     }
 
 To sell a nft, you would make a POST request to the following URL:
-http://localhost:3000/sell
+http://localhost:8000/sell
 
 
 The request body would contain the following JSON data:
@@ -81,7 +81,7 @@ The request body would contain the following JSON data:
 
 
 To login through passphrase, you would make a POST request to the following URL:
-http://localhost:3000/login
+http://localhost:8000/login
 
 The request body would contain the following JSON data:
 
@@ -90,7 +90,7 @@ The request body would contain the following JSON data:
     }
 
 To add faucet to a lisk account, you would make a POST request to the following URL:
-http://localhost:3000/addFaucet
+http://localhost:8000/addFaucet
 
 The request body would contain the following JSON data:
 
