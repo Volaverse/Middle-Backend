@@ -46,7 +46,7 @@ module.exports = function (app) {
     if (!category) {
       return res
         .status(400)
-        .json({ msg: "Please send the imageUrl parameter" });
+        .json({ msg: "Please send the category parameter" });
     }
     if (!passphrase) {
       return res
@@ -57,7 +57,7 @@ module.exports = function (app) {
       return res.status(400).json({ msg: "Please send the fee parameter" });
     }
     if (!(category == 3 || category == "3")) {
-      res
+      return res
         .status(400)
         .json({ Message: "Cannot create nft for the given category" });
     }

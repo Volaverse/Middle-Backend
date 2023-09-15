@@ -24,18 +24,18 @@ module.exports = function (app) {
     try {
       transaction = await api.faucet(recipientAddress, amount);
     } catch (err) {
-      return res.status(400).json({ Message: "Kindly Try after sometime" });
+      return res.status(400).json({ Message: "Kindly try after sometime" });
     }
 
     if (!transaction) {
       return res.status(400).json({
-        Message: "Cannot sign the transaction.Kindly Try after sometime",
+        Message: "Cannot sign the transaction.Kindly try after sometime",
       });
     }
     if (transaction.result != undefined && transaction.result != "") {
       res.json({ status: "success", Message: "Faucet has been transfered" });
     } else {
-      res.status(400).json({ Message: "Kindly Try after sometime" });
+      res.status(400).json({ Message: "Kindly try after sometime" });
     }
   });
 };

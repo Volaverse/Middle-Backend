@@ -37,7 +37,7 @@ module.exports = function (app) {
         fee,
       });
     } catch (err) {
-      return res.status(400).json({ Message: "Kindly Try after sometime" });
+      return res.status(400).json({ Message: "Kindly try after sometime" });
     }
 
     if (!transaction) {
