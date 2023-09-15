@@ -9,6 +9,7 @@ app.use(morgan("tiny"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 require("./app/routes")(app);
-app.listen(port, function () {
+app.listen(port, () => {
   console.log("We are live on " + port);
 });
+module.exports = app;

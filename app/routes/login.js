@@ -1,5 +1,7 @@
 /* global Buffer */
+//This api is used to return lisk address associated with a particular passphrase
 const { cryptography } = require("@liskhq/lisk-client");
+
 module.exports = function (app) {
   app.post("/login", async (req, res) => {
     const passphrase = req.body.passphrase;

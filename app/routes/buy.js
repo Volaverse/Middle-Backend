@@ -1,11 +1,11 @@
+// This is api for buying the nft.
+//It takes name,tokenId,passphrase of the user,purchase value and fee as input
 const api = require("../../requests");
-const buy_tokken = require("../../utils/transactions/purchaseNftToken");
 
 module.exports = function (app) {
   app.post("/buy", async (req, res) => {
-    const nodeInfo = await api.fetchNodeInfo();
     const name = req.body.name;
-    const id = req.body.id;
+    const nftId = req.body.id;
     const purchaseValue = req.body.purchaseValue;
     const passphrase = req.body.passphrase;
     const fee = req.body.fee;
@@ -13,7 +13,7 @@ module.exports = function (app) {
     if (!name) {
       return res.status(400).json({ msg: "Please send the name parameter" });
     }
-    if (!id) {
+    if (!nftId) {
       return res.status(400).json({ msg: "Please send the id parameter" });
     }
     if (!passphrase) {
@@ -29,42 +29,32 @@ module.exports = function (app) {
     if (!fee) {
       return res.status(400).json({ msg: "Please send the fee parameter" });
     }
-    var networkId, minFee;
-    if (nodeInfo) {
-      networkId = nodeInfo.networkIdentifier;
-      minFee = nodeInfo.genesisConfig.minFeePerByte;
-    } else {
-      res.status(400).json({
-        Message: "Cannot get network info from the blockchain.Kindly try again",
+
+    let transaction;
+    try {
+      transaction = await api.purchaseNft({
+        name,
+        nftId,
+        purchaseValue,
+        fee,
+        passphrase,
       });
+    } catch (err) {
+      return res.status(400).json({ Message: "Kindly Try after sometime" });
     }
-    const transaction = await buy_tokken.purchaseNFTToken(
-      name,
-      id,
-      purchaseValue,
-      passphrase,
-      fee,
-      networkId,
-      minFee
-    );
+
     if (!transaction) {
-      return res.status(400).json({
-        Message: "Cannot get the transaction.Kindly try after sometime",
-      });
-    }
-    const resp = await api.sendTransactions(transaction.tx);
-    if (!resp) {
       return res.status(400).json({
         Message: "Cannot send the transaction.Kindly try after sometime",
       });
     }
     if (
-      resp.data.data.transactionId != undefined &&
-      resp.data.data.transactionId != ""
+      transaction.transactionId != undefined &&
+      transaction.transactionId != ""
     ) {
       res.json({ status: "success", Message: "Your Nft has been purchased" });
     } else {
-      res.status(400).json({ Message: "Kindly Try after sometime" });
+      res.status(400).json({ Message: "Kindly try after sometime" });
     }
   });
 };

@@ -1,84 +1,130 @@
 /* global Buffer */
-const axios = require("axios");
-const { transactions, cryptography } = require("@liskhq/lisk-client");
-const host = "http://localhost";
+/* global BigInt */
+//These are the requests which are sent to blockchain
+const { transactions } = require("@liskhq/lisk-client");
+const { apiClientReq, clientTxnReq } = require("./apiClient");
+
+//To get blockchain information
 const fetchNodeInfo = async () => {
-  return axios
-    .get(host + ":4000/api/node/info")
-    .then((res) => res.data.data)
-    .catch((error) => console.log(error));
+  try {
+    const nodeInfo = await apiClientReq("app:getNodeInfo");
+    return nodeInfo;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
-
+// to get account information
 const fetchAccountInfo = async (address) => {
-  return axios
-    .get(host + `:4000/api/accounts/${address}`)
-    .then((res) => res.data.data)
-    .catch((error) => console.log(error));
+  try {
+    const accountInfo = await apiClientReq("getAccount", { address: address });
+    return accountInfo;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
-
-const sendTransactions = async (tx) => {
-  return axios
-    .post(host + ":4000/api/transactions", JSON.stringify(tx), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((error) => {
-      console.log(error);
+// to add faucet
+const faucet = async (address, tokken) => {
+  try {
+    const faucet = await apiClientReq("faucet:fundTokens", {
+      address: address,
+      tokken,
     });
+    return faucet;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
-
+// to list all nft tokens
 const fetchAllNFTTokens = async () => {
-  return axios
-    .get(host + ":8080/api/nft_tokens")
-    .then((res) => {
-      var response = "";
-      if (res.data.data && res.data.data.length > 0) {
-        response = res.data.data.map((x) => {
-          x.ownerAddress = cryptography
-            .getBase32AddressFromAddress(
-              Buffer.from(x.ownerAddress, "hex"),
-              "lsk"
-            )
-            .toString("binary");
-          x.value = transactions.convertBeddowsToLSK(String(x.value));
-          return x;
-        });
-        if (response) {
-          return response;
-        }
-        return res.data.data;
-      }
-
-      return res.data.data;
-    })
-    .catch((error) => console.log(error));
+  try {
+    const nftTokens = await apiClientReq("nft:getAllNFTTokens");
+    return nftTokens;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
+// to purchase nft
+const purchaseNft = async ({ name, nftId, purchaseValue, fee, passphrase }) => {
+  const tx = {
+    moduleID: 1024,
+    assetID: 1,
+    fee: BigInt(transactions.convertLSKToBeddows(fee)),
+    asset: {
+      name: name,
+      nftId: Buffer.from(nftId, "hex"),
+      purchaseValue: BigInt(transactions.convertLSKToBeddows(purchaseValue)),
+    },
+  };
 
-const fetchNFTToken = async (id) => {
-  return axios
-    .get(host + `:8080/api/nft_tokens/${id}`)
-    .then((res) => res.json())
-    .then((res) => res.data);
+  let res = "";
+  try {
+    res = await clientTxnReq(tx, passphrase);
+    return res;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
+// to sell nft
+const sellNft = async ({ name, nftId, minPurchaseMargin, fee, passphrase }) => {
+  const tx = {
+    moduleID: 1024,
+    assetID: 2,
+    fee: BigInt(transactions.convertLSKToBeddows(fee)),
+    asset: {
+      name: name,
+      nftId: Buffer.from(nftId, "hex"),
+      minPurchaseMargin: parseInt(minPurchaseMargin),
+    },
+  };
 
-const getAllTransactions = async () => {
-  return axios
-    .get(host + `:8080/api/transactions`)
-    .then((res) => res.json())
-    .then((res) => {
-      return res.data;
-    });
+  let res = "";
+  try {
+    res = await clientTxnReq(tx, passphrase);
+    return res;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+// to create nft
+const createNft = async ({
+  name,
+  description,
+  initValue,
+  minPurchaseMargin,
+  passphrase,
+  category,
+  imageUrl,
+  fee,
+}) => {
+  const tx = {
+    moduleID: 1024,
+    assetID: 0,
+    fee: BigInt(transactions.convertLSKToBeddows(fee)),
+    asset: {
+      name: name,
+      description: description,
+      initValue: BigInt(transactions.convertLSKToBeddows(initValue)),
+      minPurchaseMargin: parseInt(minPurchaseMargin),
+      category: parseInt(category),
+      imageUrl: imageUrl,
+    },
+  };
+
+  let res = "";
+  try {
+    res = await clientTxnReq(tx, passphrase);
+    return res;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 module.exports = {
   fetchNodeInfo,
   fetchAccountInfo,
-  sendTransactions,
   fetchAllNFTTokens,
-  fetchNFTToken,
-  getAllTransactions,
+  purchaseNft,
+  sellNft,
+  createNft,
+  faucet,
 };
