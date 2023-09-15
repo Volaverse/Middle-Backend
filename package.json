@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/Volaverse/Middle-Backend.git"
   },
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@liskhq/lisk-client": "^5.0.3",
     "axios": "^0.21.4",
