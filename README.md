@@ -41,7 +41,7 @@ The following are the APIs that are provided by this backend:
 - /login: This API is used to login.It returns the lisk address
 
 - /create: This API is used to create lisk account with 100 lsk faucets
-- 
+
 - /createNft: This API is used to create nft
 
 - /addFaucet: This API is to add faucets to a lisk account 
