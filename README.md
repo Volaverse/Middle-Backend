@@ -1,15 +1,15 @@
 # Overview
-This Node.js backend provides a set of APIs that allow unity frontend to interact with the Lisk blockchain. This project uses Node.js v16.15.0 and lisk-sdk 5.2.2
+This Node.js backend provides a set of APIs that allow unity frontend to interact with the Lisk l2 blockchain. This project uses Node.js v18
 
 
 # Getting Started
 To use this backend, you will need to install the following dependencies:
 
-Node.js v16.15.0
+Node.js v18
 
 Running blockchain on localhost .To run the blockchain on your localhost, you can follow the instructions provided in the [Volaverse/Blockchain-lisk](https://github.com/Volaverse/Blockchain-lisk) repository
 
-After Installing node and cloning this repository
+After cloning this repository
 
 run npm install
 
