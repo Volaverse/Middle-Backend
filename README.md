@@ -7,7 +7,7 @@ To use this backend, you will need to install the following dependencies:
 
 Node.js v18
 
-Running blockchain on localhost .To run the blockchain on your localhost, you can follow the instructions provided in the [Volaverse/Blockchain-lisk](https://github.com/Volaverse/Blockchain-lisk) repository
+
 
 After cloning this repository
 
@@ -22,85 +22,67 @@ This will start the backend on port 8000. You can then access the APIs by making
 APIs
 The following are the APIs that are provided by this backend:
 
-/tokenInfo: This API returns a list of all tokens
+* /nftListings: This API returns a list of nfts listed on the marketplace
 
-/buy: This API is used to buy the nft.
+* /getUserWearables: This API returns the wearables nft owned by a user
 
-/sell: This API is used to sell the nft.
+* /getUserNfts: This API returns a list of all the Nfts owned by a user
 
-/info: This API returns information about the blockchain.
+* /getUsername: This API returns the username associated with a wallet address
 
-/tokenInfo: This API returns a list of Nfts with relevant information
+* /getLandInfo: This API returns the information about a particular land parcel
 
-/login: This API is used to login.It returns the lisk address
+* /checkTokenOwnership: This api is used to check wether a particular nft is owned by a particular address
 
-/create: This API is used to create lisk account with 5 lsk faucets
+* /blog: This api is returns the blog data which is used in the website
 
-/addFaucet: This API is to add faucets to a lisk account 
+* /addInfo: This api is used to add user data in the mongoDB
+
+
 
 ## Examples
 The following are some examples of how to use the APIs in this backend:
 
-To create new credentials with 5 lsk faucet, you would make a GET request to the following URL:
-http://localhost:8000/create
+To get the nfts listed on the marketplace, you would make a GET request to the following URL:
+http://localhost:8000/nftListings
 
-To get a list of all nft with relevant information in the blockchain, you would make a GET request to the following URL:
-http://localhost:8000/tokenInfo
+To get a list of nfts owned by a user
+http://localhost:8000/getUserNfts?address=userAddress
 
-To get information about blockchain, you would make a GET request to the following URL:
-http://localhost:8000/info
+To get a list of wearable nfts owned by a user
+http://localhost:8000/getUserWearables?address=userAddress
 
-To create a buy a nft, you would make a POST request to the following URL:
+To get a information of a particular weabable nft owned by a user
+http://localhost:8000/getUserWearables?address=userAddress&id=tokenId
+
+To get a information of a particular land nft owned by a user
+http://localhost:8000/getLandInfo?address=userAddress&tokenId=tokenId
+
+To get check ownership  of a particular land nft 
+http://localhost:8000/checkTokenOwnership?address=userAddress&tokenId=tokenId
+
+To get blog data
+http://localhost:8000/blog
+
+To username associated with a wallet, you would make a POST request to the following URL:
 http://localhost:8000/buy
 
 The request body would contain the following JSON data:
 
     {
-      "name":"Name",
-      "id":"Id",
-      "passphrase":"passphrase for account",
-      "fee":"Transaction fee",
-      "purchaseValue":"Purchase Value"
+      "walletAddress":"address",
     }
 
-To sell a nft, you would make a POST request to the following URL:
-http://localhost:3000/sell
-
-
-The request body would contain the following JSON data:
-
-
-    {
-      "name":"Name",
-      "id":"Id",
-      "passphrase":"passphrase for account",
-      "fee":"Transaction fee",
-      "minPurchaseMargin":"Minimum Purchase Value"
-    }
-
-
-
-To login through passphrase, you would make a POST request to the following URL:
-http://localhost:3000/login
+To add information in mongoDb , you would make a POST request to the following URL:
+http://localhost:8000/addInfo
 
 The request body would contain the following JSON data:
 
     {
-       "passphrase": "passphrase"
+      "userName": "userName",
+      "email": "emailId",
+      "walletAddress":"address"
     }
-
-To add faucet to a lisk account, you would make a POST request to the following URL:
-http://localhost:3000/addFaucet
-
-The request body would contain the following JSON data:
-
-    {
-         "recipientAddress": "Recipet lisk address",
-         "amount": "Amount to be added",
-         "fee": "Transaction fee"
-    }
-
-
 
 # License
 [Apache License](LICENSE)
